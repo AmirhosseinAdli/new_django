@@ -10,9 +10,8 @@
 </div>
 {% for article in articles %}
 <img src="{{ article.thumbnail.url }}" alt="">
-<p>
-    title: {{ article.title }}
-</p>
+<!--<h1><a href="/article/{{ article.slug }}/">title: {{ article.title }}</a></h1>-->
+<h1><a href="{% url 'blog:detail' article.slug %}">title: {{ article.title }}</a></h1>
 <p>
     description: {{ article.description }}
 </p>
