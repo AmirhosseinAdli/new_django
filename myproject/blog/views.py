@@ -1,7 +1,7 @@
 from urllib.request import Request
 
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Article
 
 
@@ -15,9 +15,18 @@ def home(request: Request):
     # }
 
     context: dict = {
-        "articles": Article.objects.filter(status="p").order_by("-publish_datetime")
+        # "articles": Article.objects.filter(status="p").order_by("-publish_datetime")
+        "articles": Article.objects.order_by("-publish_datetime")
     }
     return render(request, "blog/home.html", context)
 
+
 def api(request: Request):
     return JsonResponse({"title": "سلام دنیا"})
+
+
+def detail(request: Request, slug: str):
+    context: dict = {
+        "article": get_object_or_404(Article, slug=slug)
+    }
+    return render(request, "blog/detail.html", context)
