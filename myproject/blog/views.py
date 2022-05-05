@@ -16,7 +16,7 @@ def home(request: Request):
 
     context: dict = {
         # "articles": Article.objects.filter(status="p").order_by("-publish_datetime")
-        "articles": Article.objects.order_by("-publish_datetime")
+        "articles": Article.objects.published().order_by("-publish_datetime")
     }
     return render(request, "blog/home.html", context)
 
@@ -27,6 +27,7 @@ def api(request: Request):
 
 def detail(request: Request, slug: str):
     context: dict = {
-        "article": get_object_or_404(Article, slug=slug)
+        # "article": get_object_or_404(Article, slug=slug, status='p')
+        "article": get_object_or_404(Article.objects.published(), slug=slug)
     }
     return render(request, "blog/detail.html", context)
