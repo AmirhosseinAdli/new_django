@@ -21,7 +21,9 @@ class ArticleAdmin(admin.ModelAdmin):
     ordering: list[str] = ["status", "-publish_datetime"]
 
     def _category_to_str(self, obj: Article) -> str:
-        return "، ".join([category.title for category in (obj.category.all())])
+        # return "، ".join([category.title for category in (obj.category.all())])
+        # return "، ".join([category.title for category in (obj.category.filter(status=True))])
+        return "، ".join([category.title for category in (obj.category_published())])
     _category_to_str.short_description: str = "دسته بندی"
 
 

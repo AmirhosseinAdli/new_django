@@ -42,4 +42,8 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    def category_published(self):
+        return self.category.filter(status=True)
+
     objects = ArticleManager()
+    # published_objects = ArticleManager()
